@@ -7,3 +7,4 @@ Hello MVC App for .NET and ASP.
 - https://docs.microsoft.com/en-us/dotnet/core/tools/index?tabs=netcore2x
 - https://docs.microsoft.com/en-us/dotnet/standard/modern-web-apps-azure-architecture/index
 - https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/index
+- https://www.toptal.com/c-sharp/job-description
