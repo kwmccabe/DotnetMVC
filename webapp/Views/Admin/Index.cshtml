@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Administration";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>You must be logged in to see this.</p>
+
+<ul>
+    <li><a asp-action="Index">Index</a> [Authorize]</li>
+    <li><a asp-action="Status">Status</a> [Authorize(Roles = "Editor")]</li>
+    <li><a asp-action="Info">Info</a> [Authorize(Roles = "Administrator")]</li>
+</ul>
+

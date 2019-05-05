@@ -1,0 +1,91 @@
+@model webapp.Models.Template
+
+@{
+    ViewData["Title"] = "'" + Model.Keyname + "' - delete";
+}
+
+<h1>Delete Template</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Template</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a asp-action="Delete" asp-route-id="@Model.Id">@Html.DisplayFor(model => model.Keyname)</a></li>
+  </ol>
+</nav>
+<hr size="1" />
+
+<h3>Are you sure you want to delete this Template Item?</h3>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Template Item</dt>
+        <dd class="col-sm-10">
+            <a asp-controller="Item" asp-action="Details" asp-route-id="@Model.Id">
+                @Html.DisplayFor(model => model.Keyname)
+            </a>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TemplateStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TemplateStatus)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Raw(Model.Text)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.Owner)
+        </dt>
+        <dd class="col-sm-10">
+            <text>@Html.DisplayFor(model => model.Item.Owner.UserName) [@Html.DisplayFor(model => model.Item.Owner.Email)]</text>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.CreateDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.CreateDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.ModificationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.ModificationDate)
+        </dd>
+
+    @if (Model.Content?.Count > 0)
+    {
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Content.First().Keyname)
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
+            @foreach (var content in Model.Content.Select((val, idx) => new { val, idx }))
+            {
+                <li><a asp-controller="Content" asp-action="Details" asp-route-id="@content.val.Id">
+                    @Html.DisplayFor(val => content.val.Keyname)
+                </a></li>
+            }
+            </ul>
+        </dd>
+    }
+
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

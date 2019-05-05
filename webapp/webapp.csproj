@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-webapp-2522E86F-E4EC-4E93-89A1-D3F23C7E542F</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Remove="app.db" />
+    <None Remove="app.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
+    <PackageReference Include="bootstrap" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\Account\ConfirmEmail.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\ExternalLogin.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\ForgotPassword.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\Lockout.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\LoginWith2fa.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\LoginWithRecoveryCode.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Areas\Identity\Pages\Shared\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Util\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190301190930_Init.cs" />
+    <Compile Remove="Data\Migrations\20190301190930_Init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190304191556_Init.cs" />
+  </ItemGroup>
+</Project>
