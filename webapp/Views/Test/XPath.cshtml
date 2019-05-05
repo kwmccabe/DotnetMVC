@@ -1,0 +1,75 @@
+﻿@functions {
+string GetNodes(XPathNodeIterator nodes)
+{
+    var result = "<ul>";
+    while (nodes.MoveNext())
+    {
+        result += "<li>";
+        result += GetNodeText(nodes.Current);
+        result += GetNodeAttributes(nodes.Current);
+        result += GetNodeChildren(nodes.Current);
+        result += "</li>";
+    }
+    result += "</ul>";
+    return result;
+}
+
+string GetNodeText(XPathNavigator node)
+{
+    return node.Name + " - " + node.Value;
+}
+string GetNodeAttributes(XPathNavigator node)
+{
+    var result = "";
+    if (node.HasAttributes && node.MoveToFirstAttribute())
+    {
+        result += "<ul>";
+        result += "<li>ATTR: " + GetNodeText(node) + "</li>";
+        while (node.MoveToNextAttribute())
+        {
+            result += "<li>ATTR: " + GetNodeText(node) + "</li>";
+        }
+        result += "</ul>";
+
+        node.MoveToParent();
+    }
+    return result;
+}
+string GetNodeChildren(XPathNavigator node)
+{
+    var result = "";
+    if (node.HasChildren && node.MoveToFirstChild())
+    {
+        if (node.NodeType == XPathNodeType.Element)
+        {
+            result += "<ul>";
+            result += "<li>SUB: " + GetNodeText(node) + "</li>";
+            result += GetNodeAttributes(node);
+            result += GetNodeChildren(node);
+        }
+
+        while (node.MoveToNext(XPathNodeType.Element))
+        {
+            if (result == "") { result += "<ul>"; }
+            result += "<li>SUB: " + GetNodeText(node) + "</li>";
+            result += GetNodeAttributes(node);
+            result += GetNodeChildren(node);
+        }
+        if (result != "") { result += "</ul>"; }
+
+        node.MoveToParent();
+    }
+    return result;
+}
+}
+@{
+    ViewData["Title"] = "Test/XPath";
+}
+
+<h1>Test/XPath</h1>
+
+
+<div>nodes_ul: @Html.Raw(@ViewData["nodes_ul"])</div>
+<div>
+    @Html.Raw(@GetNodes(@ViewBag.nodes))
+</div>

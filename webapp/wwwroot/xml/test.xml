@@ -1,0 +1,8 @@
+<nodes name="test">
+    <node id="1">node one</node>
+    <node id="2">
+        <subnode id="2.1">node two, sub one</subnode>
+        <subnode id="2.2">node two, sub two</subnode>
+    </node>
+    <node id="3">node three</node>
+</nodes>

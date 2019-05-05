@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "JQuery Items";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h2>All Items</h2>
+    <ul id="items" />
+</div>
+<div>
+    <h2>Search by ID</h2>
+    <input type="text" id="itemId" size="5" />
+    <input type="button" value="Search" onclick="find();" />
+
+    <p id="item" />
+</div>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<script>
+
+var uri = 'api/item';
+
+$(document).ready(function () {
+  // Send an AJAX request
+  $.getJSON(uri)
+      .done(function (data) {
+        // On success, 'data' contains a list of products.
+        $.each(data, function (key, item) {
+          // Add a list item for the product.
+          $('<li>', { text: formatItem(item) }).appendTo($('#items'));
+        });
+      });
+});
+
+function formatItem(item) {
+    return item.itemType + '[' + item.id + ']: ' + item.keyname;
+}
+
+function find() {
+  var id = $('#itemId').val();
+  $.getJSON(uri + '/' + id)
+      .done(function (data) {
+        $('#item').text(formatItem(data));
+      })
+      .fail(function (jqXHR, textStatus, err) {
+        $('#item').text('Error: ' + err);
+      });
+}
+</script>

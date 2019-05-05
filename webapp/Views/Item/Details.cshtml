@@ -1,0 +1,69 @@
+@model webapp.Models.Item
+
+@{
+    ViewData["Title"] = "'" + Model.Keyname + "' - item details";
+}
+
+<h1>@Html.DisplayFor(model => model.ItemType) Item</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Items</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(model => model.Keyname)</a></li>
+  </ol>
+</nav>
+<hr size="1" />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayFor(model => model.ItemType)
+        </dt>
+        <dd class="col-sm-10">
+            <a asp-controller="@Model.ItemType" asp-action="Details" asp-route-id="@Model.Id">
+                @Html.DisplayFor(model => model.Keyname)
+            </a>
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+        <dd class="col-sm-10">
+            <text>@Html.DisplayFor(model => model.Owner.UserName) [@Html.DisplayFor(model => model.Owner.Email)]</text>
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ModificationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModificationDate)
+        </dd>
+
+    @if (Model.ItemUsers?.Count > 0)
+    {
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemUsers.First().User)
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
+            @foreach (var item in Model.ItemUsers.Select((val, idx) => new { val, idx }))
+            {
+                <li>@Html.DisplayFor(val => item.val.User.UserName) (@Html.DisplayFor(val => item.val.Role))</li>
+            }
+            <ul>
+        </dd>
+    }
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit Item</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Id">Delete Item</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
